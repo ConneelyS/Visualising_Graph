@@ -6,8 +6,9 @@ public class Graph : MonoBehaviour {
 
     [SerializeField] Transform pointPrefab;
     [SerializeField, Range(10, 100)] int resoultion = 10;
-    Transform[] points;
-    
+    [SerializeField, Range(0, 2)] int function;
+    Transform[] points;    
+
     private void Awake() {
         
         float step = 2f / resoultion;
@@ -25,11 +26,11 @@ public class Graph : MonoBehaviour {
     }
 
     private void Update(){
+        FunctionLibrary.Function f =FunctionLibrary.GetFunction(function);
         float time = Time.time;
         for (int i = 0; i < points.Length; i++) {
             Transform point = points[i];
             Vector3 position = point.localPosition;
-            position.y = Mathf.Sin(Mathf.PI * (position.x + time));
             point.localPosition = position;
         }
     }
